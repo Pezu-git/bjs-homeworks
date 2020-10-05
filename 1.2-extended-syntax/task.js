@@ -36,6 +36,13 @@ function getAverageMark(marks) {
 }
 
 function askDrink(name, dateOfBirthday) {
-    // код для задачи №3 писать здесь
-    // return result;
+    let result;
+    let date = new Date()
+    let age = date.getFullYear() - dateOfBirthday.getFullYear()
+    if (age < 18) {
+        result = `Сожалею, ${ name }, но я не могу вам продать алкоголь. Зато могу предложить вам замечательный клюквенный компот!`
+    } else {
+        result = `Не желаете ли олд-фэшн, ${ name }`
+    }
+    return result;
 }
