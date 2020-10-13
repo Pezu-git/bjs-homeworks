@@ -23,8 +23,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 
 
 function getGreeting(name) {
-    const greeting = `Привет, мир! Меня зовут ${name || 'Аноним'}`
-//    name = undefined 
-    console.log(`Привет, мир! Меня зовут ${name || 'Аноним'}`);
+    let greeting = `Привет мир! Меня зовут ${name = name == '""' || name == 'null' || name == 'undefined' ? 'Аноним' : name}`;
+    console.log(greeting);
     return greeting;
 }
