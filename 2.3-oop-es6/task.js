@@ -1,19 +1,20 @@
+'use strict'
+
 class PrintEditionItem {
     constructor(name, releaseDate, pagesCount) {
         this.name = name;
         this.releaseDate = releaseDate;
         this.pagesCount = pagesCount;
-        
         this.state = {
             state: 100,
             
-            set newState(a) {
-                if (a === 0) {
+            set newState(bookState) {
+                if (bookState === 0) {
                     this.state = 0;
-                } else if (a > 100) {
+                } else if (bookState > 100) {
                     this.state = 100;
                 } else {
-                    this.state = a
+                    this.state = bookState;
                 }
             },
 
@@ -26,7 +27,7 @@ class PrintEditionItem {
     }
     
     fix() {
-        return this.state = this.state * 1.5;
+        return this.state *= 1.5;
     }
 }
 class Magazine extends PrintEditionItem {
@@ -62,5 +63,31 @@ class DetectiveBook extends Book {
         this.type = 'detective'
     }
 }
-const picknick = new FantasticBook("Аркадий и Борис Стругацкие", "Пикник на обочине", 1972, 168);
+ //Задание 2
+class Library {
+    constructor(name, books) {
+        this.name = name
+        this.books = [];
+    }
+    addBook(book) {
+        if (book.state.state > 30) {
+            this.books.push(book);
+        }
+        
+    }
+    findBookBy(type, value) {
+        for (let i = 0; i < this.books.length; i++) {
+            if (this.books[i][type] === value) {
+                return this.books[i]
+            }
+        } return null
+    }
+    giveBookByName(bookName) {
+        for (let i = 0; i < this.books.length; i++) {
+            if (this.books[i].name === bookName) {
+                return this.books.splice(i, 1)
+            } 
+        } return null
+    }    
+}
 
