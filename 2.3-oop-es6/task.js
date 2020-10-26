@@ -5,12 +5,7 @@ class PrintEditionItem {
         this.name = name;
         this.releaseDate = releaseDate;
         this.pagesCount = pagesCount;
-        this.state = {
-            state: 100,
-            
-           
-        };
-
+        this.state = 100;
         this.type = null;
     }
     set state(bookState) {
@@ -28,7 +23,7 @@ class PrintEditionItem {
     }
     
     fix() {
-        return this._state *= 1.5;
+        return this.state *= 1.5;
     }
 }
 class Magazine extends PrintEditionItem {
@@ -37,33 +32,32 @@ class Magazine extends PrintEditionItem {
         this.type = "magazine"
     }
 }
-    
 class Book extends PrintEditionItem {
-    constructor(name, releaseDate, pagesCount) {
+    constructor(author, name, releaseDate, pagesCount) {
         super(name, releaseDate, pagesCount);
-        this.author = name;
-        this.type = 'Book'
+        this.author = author;
+        this.type = 'book'
     }
 }
 class NovelBook extends Book {
-    constructor(name, releaseDate, pagesCount) {
-        super(name, releaseDate, pagesCount)
+    constructor(author, name, releaseDate, pagesCount) {
+        super(author, name, releaseDate, pagesCount)
         this.type = 'novel'
     }
 }
 class FantasticBook extends Book {
-    constructor(name, releaseDate, pagesCount) {
-        super(name, releaseDate, pagesCount)
+    constructor(author, name, releaseDate, pagesCount) {
+        super(author, name, releaseDate, pagesCount)
         this.type = 'fantastic'
     }
 }
-
 class DetectiveBook extends Book {
-    constructor(name, releaseDate, pagesCount) {
-        super(name, releaseDate, pagesCount)
+    constructor(author, name, releaseDate, pagesCount) {
+        super(author, name, releaseDate, pagesCount)
         this.type = 'detective'
     }
 }
+
  //Задание 2
 class Library {
     constructor(name, books) {
@@ -71,10 +65,9 @@ class Library {
         this.books = [];
     }
     addBook(book) {
-        if (book.state.state > 30) {
+        if (book.state > 30) {
             this.books.push(book);
-        }
-        
+        }  
     }
     findBookBy(type, value) {
         for (let i = 0; i < this.books.length; i++) {
@@ -92,4 +85,3 @@ class Library {
         } return null
     }    
 }
-
