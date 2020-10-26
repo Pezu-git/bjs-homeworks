@@ -8,26 +8,27 @@ class PrintEditionItem {
         this.state = {
             state: 100,
             
-            set newState(bookState) {
-                if (bookState === 0) {
-                    this.state = 0;
-                } else if (bookState > 100) {
-                    this.state = 100;
-                } else {
-                    this.state = bookState;
-                }
-            },
-
-            get newState() {
-                return this.state;
-            }
+           
         };
 
         this.type = null;
     }
+    set state(bookState) {
+        if (bookState === 0) {
+            this._state = 0;
+        } else if (bookState > 100) {
+            this._state = 100;
+        } else {
+            this._state = bookState;
+        }
+    }
+
+    get state() {
+        return this._state;
+    }
     
     fix() {
-        return this.state *= 1.5;
+        return this._state *= 1.5;
     }
 }
 class Magazine extends PrintEditionItem {
@@ -85,8 +86,9 @@ class Library {
     giveBookByName(bookName) {
         for (let i = 0; i < this.books.length; i++) {
             if (this.books[i].name === bookName) {
-                return this.books.splice(i, 1)
-            } 
+                this.books.splice(i, 1)
+                return this.books[i]
+            }
         } return null
     }    
 }
