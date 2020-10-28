@@ -1,19 +1,18 @@
 'use strict'
 
 function parseCount(count) {
-    if (isNaN(Number.parseInt(count)) == true) {
-         
+    let parse = Number.parseInt(count)
+    if (isNaN(parse)) {
         throw new Error("Невалидное значение");   
     }
-    return Number.parseInt(count);
+    return parse;
 }
 function validateCount(count) {
     try {
-        parseCount(count);
-    } catch(e) {
-        return e.message;
-    }
-    return parseCount(count); 
+        return parseCount(count);
+    } catch (e) {
+        return e;
+    } 
 }
 
 //Задание 2
@@ -22,31 +21,25 @@ class Triangle {
         this.a = a;
         this.b = b;
         this.c = c;
-        if (this.a + this.b < this.c || this.a + this.c < this.b || this.b + this.c < this.a) {
+        if (a + b < c || a + c < b || b + c < a) {
             throw new Error("Треугольник с такими сторонами не существует")
         }
     }
-    getPerimeter() {
-        
-        return this.a + this.b + this.c;
+    getPerimeter() {  
+        let perimeter = this.a + this.b + this.c
+        return perimeter || "Ошибка! Треугольник не существует";
     }
     getArea() {
-        return Math.sqrt((this.getPerimeter() / 2) * (this.getPerimeter() / 2 - this.a) * (this.getPerimeter() / 2 - this.b) * (this.getPerimeter() / 2 - this.c)).toFixed(3)
+        return Number(Math.sqrt((this.getPerimeter() / 2) * (this.getPerimeter() / 2 - this.a) * (this.getPerimeter() / 2 - this.b) * (this.getPerimeter() / 2 - this.c)).toFixed(3)) || "Ошибка! Треугольник не существует"
     }
 }
 function getTriangle(a, b, c) {
-    class notTriangle {
-        getPerimeter() {
-            return "Ошибка! Треугольник не существует"
-        }
-        getArea() {
-            return "Ошибка! Треугольник не существует" 
-        }
-    }
     try {
         return new Triangle(a, b, c);
     } catch {
-        return new notTriangle();
-    }
+        return new Triangle()
+    }  
 }
-    
+
+
+
