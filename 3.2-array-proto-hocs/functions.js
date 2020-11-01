@@ -29,9 +29,49 @@ function hasReliableWeapons(durability) {
     return false;
 }
 
-// function getReliableWeaponsNames() {
+function getReliableWeaponsNames(durability) {
+    let durableWeaponList = [];
+    const weaponList = weapons.some(function (item) {
+        if (item.durability > durability) {
+            durableWeaponList.push(item.name);
+        }
+    }
+    )
+    return durableWeaponList;
+}
 
-// }
+function getTotalDamage() {
+    let weaponAttackSum = 0;
+    const findAttack = weapons.find(function (item) {
+        weaponAttackSum += item.attack;
+    }
+    )
+    return weaponAttackSum;
+}
+
+//Дополнительно
+const numberArrey = [1, 4];
+const sum = 50;
+function getSumm(a, b) {
+    let sumArrey = [];
+    let numberArreyItemSum = 0;
+    numberArrey.find(function (item) {
+        if (numberArreyItemSum < sum) {
+            numberArreyItemSum += item;
+            sumArrey.push(item);   
+        }
+    }
+    )
+    if (numberArreyItemSum < sum) {
+        return numberArrey.length;
+    } else {
+        return sumArrey.length;
+    }   
+}
+console.log(getSumm(numberArrey, sum))
+
+
+
     
 
 
