@@ -4,10 +4,7 @@ const weapons = [new Knife(), new Staff(), new Axe(), new StormStaff(), new Long
 
 function getNames() {
     let weaponName = [];
-    const findName = weapons.find(function(item) {
-        weaponName.push(item.name)
-    }
-    )
+    const findName = weapons.map(item => weaponName.push(item.name));
     return weaponName;
 }  
 
@@ -42,35 +39,58 @@ function getReliableWeaponsNames(durability) {
 
 function getTotalDamage() {
     let weaponAttackSum = 0;
-    const findAttack = weapons.find(function (item) {
-        weaponAttackSum += item.attack;
-    }
-    )
+    const findAttack = weapons.map(item => weaponAttackSum += item.attack);
     return weaponAttackSum;
 }
 
 //Дополнительно
 const numberArrey = [1, 4];
-const sum = 50;
+const summ = 50;
 function getSumm(a, b) {
     let sumArrey = [];
     let numberArreyItemSum = 0;
     numberArrey.find(function (item) {
-        if (numberArreyItemSum < sum) {
+        if (numberArreyItemSum < summ) {
             numberArreyItemSum += item;
             sumArrey.push(item);   
         }
     }
     )
-    if (numberArreyItemSum < sum) {
+    if (numberArreyItemSum < summ) {
         return numberArrey.length;
     } else {
         return sumArrey.length;
     }   
 }
-console.log(getSumm(numberArrey, sum))
 
 
+//Задание 2
+function sleep(milliseconds) 
+{
+  let e = new Date().getTime() + milliseconds;
+  while (new Date().getTime() <= e) {}
+}
+
+
+function sum(...args) {
+    // Замедление на половину секунды.
+    sleep(100); 
+    return args.reduce((sum, arg) => {
+      return sum += arg;
+    }, 0);
+  }
+
+function compareArrays(arr1, arr2) {
+    return arr1.every(i => arr2.indexOf(i) != -1) && arr2.every(i => arr1.indexOf(i) != -1);  
+}
+
+function memorize(sum, limit) {
+    for(let i = 0; i < limit; i++) {
+      return sum;
+    }
+    }
+
+ 
 
     
 
