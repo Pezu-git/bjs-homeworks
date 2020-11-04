@@ -49,8 +49,8 @@ const summ = 50;
 function getSumm(a, b) {
     let sumArrey = [];
     let numberArreyItemSum = 0;
-    numberArrey.find(function (item) {
-        if (numberArreyItemSum < summ) {
+    a.find(function (item) {
+        if (numberArreyItemSum < b) {
             numberArreyItemSum += item;
             sumArrey.push(item);   
         }
@@ -65,37 +65,37 @@ function getSumm(a, b) {
 
 
 //Задание 2
-function sleep(milliseconds) 
-{
+
+function sleep(milliseconds) {
   let e = new Date().getTime() + milliseconds;
   while (new Date().getTime() <= e) {}
 }
 
-
 function sum(...args) {
-    // Замедление на половину секунды.
     sleep(100); 
     return args.reduce((sum, arg) => {
       return sum += arg;
     }, 0);
   }
-
-function compareArrays(arr1, arr2) {
-    return arr1.every(i => arr2.indexOf(i) != -1) && arr2.every(i => arr1.indexOf(i) != -1);  
+  function compareArrays(arr1, arr2) {
+    return arr2.every(i => arr1.indexOf(i) === arr2.indexOf(i)) && arr1.every(i => arr1.indexOf(i) === arr2.indexOf(i))   
 }
 
 function memorize(sum, limit) {
-    for(let i = 0; i < limit; i++) {
-      return sum;
+    let memory = [];
+        return function mSum(...args) {
+            const mem = memory.find(function (item) {
+                if (compareArrays(item.args, Array.from(mSum.arguments))) {
+                  console.log(item.result);
+                  return item.result;
+                }
+            })
+            if (mem === undefined) {
+                sum(...args);
+                memory.push({ args: Array.from(mSum.arguments), result: sum(...args) });
+                if (memory.length > limit) {
+                    memory.splice(limit, 1);
+                }
+            }
     }
-    }
-
- 
-
-    
-
-
-
-
-
-
+}
