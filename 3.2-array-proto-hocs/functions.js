@@ -3,44 +3,25 @@ console.clear()
 const weapons = [new Knife(), new Staff(), new Axe(), new StormStaff(), new LongBow(), new Bow()]
 
 function getNames() {
-    let weaponName = [];
-    const findName = weapons.map(item => weaponName.push(item.name));
-    return weaponName;
-}  
+    return weapons.map(item => item.name);
+}
 
 function getCountReliableWeapons(durability) {
-    let weaponDurabilityCount = 0;
-    const findDurability = weapons.some(function(item) {
-        if (item.durability > durability) {
-            weaponDurabilityCount++;
-        }
-    }
-    )
-    return weaponDurabilityCount
+    return weapons.filter(item => item.durability > durability).length;
 }
-
 function hasReliableWeapons(durability) {
-    if (getCountReliableWeapons(durability)) {
-        return true;
+    return weapons.some(item => item.durability > durability);
     }
-    return false;
-}
 
 function getReliableWeaponsNames(durability) {
-    let durableWeaponList = [];
-    const weaponList = weapons.some(function (item) {
-        if (item.durability > durability) {
-            durableWeaponList.push(item.name);
-        }
-    }
-    )
-    return durableWeaponList;
+    const findWeapon = weapons.filter(item => item.durability > durability);
+    return findWeapon.map(item => item.name);  
 }
 
 function getTotalDamage() {
-    let weaponAttackSum = 0;
-    const findAttack = weapons.map(item => weaponAttackSum += item.attack);
-    return weaponAttackSum;
+    return weapons.reduce((sumAttack, item) => {
+        return sumAttack += item.attack
+    }, 0);  
 }
 
 //Дополнительно
@@ -78,7 +59,7 @@ function sum(...args) {
     }, 0);
   }
   function compareArrays(arr1, arr2) {
-    return arr2.every(i => arr1.indexOf(i) === arr2.indexOf(i)) && arr1.every(i => arr1.indexOf(i) === arr2.indexOf(i))   
+    return arr2.every(i => arr1.length === arr2.length && arr1.includes(i) === arr2.includes(i)) && arr1.every(i => arr1.length === arr2.length && arr1.includes(i) === arr2.includes(i))
 }
 
 function memorize(sum, limit) {
