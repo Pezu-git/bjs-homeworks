@@ -1,3 +1,4 @@
+'use strict'
 console.clear()
 
 const weapons = [new Knife(), new Staff(), new Axe(), new StormStaff(), new LongBow(), new Bow()]
@@ -58,25 +59,33 @@ function sum(...args) {
       return sum += arg;
     }, 0);
   }
-  function compareArrays(arr1, arr2) {
-    return arr2.every(i => arr1.length === arr2.length && arr1.includes(i) === arr2.includes(i)) && arr1.every(i => arr1.length === arr2.length && arr1.includes(i) === arr2.includes(i))
-}
+function compareArrays(arr1, arr2) {
+    return arr1.length === arr2.length && arr1.every(i => arr1.includes(i) === arr2.includes(i)) && arr2.every(i => arr1.includes(i) === arr2.includes(i));  
+} 
+console.log(compareArrays([8, 1, 2], [8, 1, 2, 3, 3, 3, 3]));
+console.log(compareArrays([8, 1, 2, 3], [8, 1, 2, 3]));
 
-function memorize(sum, limit) {
-    let memory = [];
-        return function mSum(...args) {
+
+function memorize(func, limit) {
+    return function func2(...args) {
+        let memory = [];
             const mem = memory.find(function (item) {
-                if (compareArrays(item.args, Array.from(mSum.arguments))) {
+                if (compareArrays(item.args, Array.from(func2.arguments))) {
                   console.log(item.result);
                   return item.result;
                 }
             })
-            if (mem === undefined) {
-                sum(...args);
-                memory.push({ args: Array.from(mSum.arguments), result: sum(...args) });
+        if (mem === undefined) {
+            const fn = func(...args);
+             memory.push({ args: args, result: fn });
                 if (memory.length > limit) {
-                    memory.splice(limit, 1);
-                }
+                    memory.splice(limit, 1);   
             }
+            console.log(memory)
+            return fn;
+            }       
     }
 }
+const func2 = memorize(sum, 5);
+console.log(func2(4, 4));
+console.log(func2(4, 4));
