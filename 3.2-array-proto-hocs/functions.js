@@ -26,25 +26,19 @@ function getTotalDamage() {
 }
 
 //Дополнительно
-const numberArrey = [1, 4];
-const summ = 50;
-function getSumm(a, b) {
-    let sumArrey = [];
-    let numberArreyItemSum = 0;
-    a.find(function (item) {
-        if (numberArreyItemSum < b) {
-            numberArreyItemSum += item;
-            sumArrey.push(item);   
-        }
-    }
-    )
-    if (numberArreyItemSum < summ) {
-        return numberArrey.length;
-    } else {
-        return sumArrey.length;
-    }   
-}
-
+// function getSumm(a, num) {
+//     let count = 0;
+//     const f = a.reduce((ItemSum, arg) => {
+//         count++;
+//         return ItemSum += arg;
+//     }, 0);
+//     if (f = num) {
+//         return count;
+//     } else {
+//         return a.length;
+//     }
+// }
+    
 
 //Задание 2
 
@@ -54,42 +48,30 @@ function sleep(milliseconds) {
 }
 
 function sum(...args) {
-    sleep(100); 
-    return args.reduce((sum, arg) => {
-      return sum += arg;
+	sleep(100);
+	return args.reduce((sum, arg) => {
+        return sum += arg;
     }, 0);
-  }
-function compareArrays(arr1, arr2) { 
-    return arr1.length === arr2.length && arr1.every(index => arr1[index] === arr2[index]);  
+}
+function compareArrays(arr1, arr2) {
+	return arr1.length === arr2.length && arr1.every((item, index) => item === arr2[index]);
 } 
 
-
-
 function memorize(func, limit) {
-    let memory = new Array;
-    return function(...args) {
-          
-        const mem = memory.find(function(item) {
-            if (compareArrays(item.args, args)) {
-                  return item.result;
-                }
-            });
-        if (mem === undefined) {
-            const fn = func(...args);
-             memory.push({ args: args, result: fn });
-                if (memory.length > limit) {
-                    memory.splice(limit, 1);     
+	let memory = [];
+	return function (...args) {
+		const memorySearch = memory.find(function (item) {
+			return compareArrays(item.args, args);
+		})
+		if (memorySearch !== undefined) {
+			return memorySearch.result;
+		} else {
+			let funcResult = func(...args);
+			memory.push({ args: args, result: funcResult });
+			if (memory.length > limit) {
+                memory.splice(limit, 1);
             }
-            console.log(memory);
-            return fn;
-        }  
-    }  
+            return funcResult;
+        }
+    }
 }
-const func2 = memorize(sum, 5);
-console.log(func2(4, 4));
-console.log(func2(4, 4));
-console.log(func2(4, 3));
-console.log(func2(4, 3));
-console.log(func2(3, 3));
-console.log(func2(5, 3));
-
